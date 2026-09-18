@@ -1,201 +1,295 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { RefreshCw, Bell, LogOut } from "lucide-react";
+import { api } from "../service/api";
 import "./Navbar.css";
 
 function Navbar() {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const [profileOpen, setProfileOpen] = useState(false);
 
-    const navigate = useNavigate();
+    const [user, setUser] = useState({
+        name: "Loading...",
+        email: "",
+        role: "Administrator"
+    });
 
-    const navItems = [
-        {
-            name: "Dashboard",
-            path: "/dashboard",
-            icon: "▦"
-        },
-        {
-            name: "Live Map",
-            path: "/map",
-            icon: "⌖"
-        },
-        {
-            name: "Devices",
-            path: "/devices",
-            icon: "◉"
-        },
-        {
-            name: "Batteries",
-            path: "/batteries",
-            icon: "▰"
-        },
-        {
-            name: "Events",
-            path: "/events",
-            icon: "◌"
-        },
-        {
-            name: "Analytics",
-            path: "/analytics",
-            icon: "◒"
+    const [loadingUser, setLoadingUser] = useState(true);
+
+    /* =====================================================
+       LOAD LOGGED-IN USER FROM DATABASE
+    ===================================================== */
+
+    useEffect(() => {
+        fetchCurrentUser();
+    }, []);
+
+    const fetchCurrentUser = async () => {
+
+        try {
+
+            setLoadingUser(true);
+
+            const response = await api.get("/user/me");
+
+            console.log("Current user from database:", response.data);
+
+            const userData =
+                response.data?.user ||
+                response.data;
+
+            setUser({
+                name: userData?.name || userData?.fullName || "Grid Admin",
+                email: userData?.email || "",
+                role: userData?.role || "Administrator"
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Unable to load current user:",
+                error
+            );
+
+            /*
+             * If API fails, try localStorage user
+             * as a fallback.
+             */
+
+            try {
+
+                const savedUser =
+                    JSON.parse(
+                        localStorage.getItem("user")
+                    );
+
+                if (savedUser) {
+
+                    setUser({
+                        name:
+                            savedUser.name ||
+                            savedUser.fullName ||
+                            "Grid Admin",
+
+                        email:
+                            savedUser.email || "",
+
+                        role:
+                            savedUser.role ||
+                            "Administrator"
+                    });
+
+                } else {
+
+                    setUser({
+                        name: "Grid Admin",
+                        email: "",
+                        role: "Administrator"
+                    });
+
+                }
+
+            } catch (storageError) {
+
+                console.error(
+                    "Unable to read saved user:",
+                    storageError
+                );
+
+                setUser({
+                    name: "Grid Admin",
+                    email: "",
+                    role: "Administrator"
+                });
+            }
+
+        } finally {
+
+            setLoadingUser(false);
         }
-    ];
+    };
+
+
+    /* =====================================================
+       REFRESH
+    ===================================================== */
+
+    const handleRefresh = () => {
+
+        window.location.reload();
+
+    };
+
+
+    /* =====================================================
+       LOGOUT
+    ===================================================== */
 
     const handleLogout = () => {
+
         localStorage.removeItem("token");
         localStorage.removeItem("user");
 
-        navigate("/login");
+        window.location.href = "/login";
+
     };
 
+
+    /* =====================================================
+       USER INITIALS
+    ===================================================== */
+
+    const getInitials = (name) => {
+
+        if (!name || name === "Loading...") {
+            return "GW";
+        }
+
+        const words = name
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean);
+
+        if (words.length === 1) {
+
+            return words[0]
+                .substring(0, 2)
+                .toUpperCase();
+
+        }
+
+        return (
+            words[0].charAt(0) +
+            words[words.length - 1].charAt(0)
+        ).toUpperCase();
+    };
+
+
     return (
-        <header className="navbar">
 
-            {/* LEFT SECTION */}
-            <div className="navbar-left">
+        <header className="grid-navbar">
 
-                {/* LOGO */}
-                <NavLink to="/dashboard" className="logo">
-                    <div className="logo-icon">
-                        ⚡
-                    </div>
+            {/* =================================================
+                NAVBAR TITLE
+            ================================================= */}
 
-                    <div className="logo-text">
-                        <span className="logo-main">
-                            GridWeaver
-                        </span>
+            <div className="navbar-title">
 
-                        <span className="logo-subtitle">
-                            MICROGRID CONTROL
-                        </span>
-                    </div>
-                </NavLink>
+                <div>
 
-                {/* NAVIGATION */}
-                <nav className={`nav-menu ${menuOpen ? "open" : ""}`}>
+                    <h2>
+                        Microgrid Dashboard
+                    </h2>
 
-                    {navItems.map((item) => (
-                        <NavLink
-                            key={item.path}
-                            to={item.path}
-                            className={({ isActive }) =>
-                                isActive
-                                    ? "nav-link active"
-                                    : "nav-link"
-                            }
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            <span className="nav-icon">
-                                {item.icon}
-                            </span>
+                    <p>
+                        Real-time IoT infrastructure monitoring
+                    </p>
 
-                            <span>
-                                {item.name}
-                            </span>
-                        </NavLink>
-                    ))}
-
-                </nav>
+                </div>
 
             </div>
 
-            {/* RIGHT SECTION */}
-            <div className="navbar-right">
 
-                {/* SYSTEM STATUS */}
-                <div className="system-status">
-                    <span className="status-dot"></span>
+            {/* =================================================
+                NAVBAR ACTIONS
+            ================================================= */}
 
-                    <div className="status-content">
-                        <span className="status-title">
-                            SYSTEM
-                        </span>
+            <div className="navbar-actions">
 
-                        <span className="status-online">
-                            Online
-                        </span>
-                    </div>
+
+                {/* =============================================
+                    LIVE
+                ============================================= */}
+
+                <div className="navbar-live">
+
+                    <span className="navbar-live-dot"></span>
+
+                    LIVE
+
                 </div>
 
-                {/* NOTIFICATION */}
-                <button className="notification-btn">
-                    <span className="notification-icon">
-                        ♢
-                    </span>
 
-                    <span className="notification-badge">
-                        3
-                    </span>
+                {/* =============================================
+                    REFRESH
+                ============================================= */}
+
+                <button
+                    className="navbar-icon-btn"
+                    onClick={handleRefresh}
+                    title="Refresh Dashboard"
+                >
+
+                    <RefreshCw size={18} />
+
                 </button>
 
-                {/* PROFILE */}
-                <div className="profile-container">
 
-                    <button
-                        className="profile-btn"
-                        onClick={() =>
-                            setProfileOpen(!profileOpen)
-                        }
-                    >
-                        <div className="avatar">
-                            OP
-                        </div>
+                {/* =============================================
+                    NOTIFICATION
+                ============================================= */}
 
-                        <div className="profile-info">
-                            <span className="profile-name">
-                                Operator
-                            </span>
+                <button
+                    className="navbar-icon-btn"
+                    title="Notifications"
+                >
 
-                            <span className="profile-role">
-                                Grid Admin
-                            </span>
-                        </div>
+                    <Bell size={18} />
 
-                        <span className="profile-arrow">
-                            ▾
+                </button>
+
+
+                {/* =============================================
+                    DATABASE USER
+                ============================================= */}
+
+                <div className="navbar-user">
+
+                    {/* USER AVATAR */}
+
+                    <div className="navbar-avatar">
+
+                        {loadingUser
+                            ? "..."
+                            : getInitials(user.name)}
+
+                    </div>
+
+
+                    {/* USER INFORMATION */}
+
+                    <div className="navbar-user-info">
+
+                        <strong>
+
+                            {loadingUser
+                                ? "Loading..."
+                                : user.name}
+
+                        </strong>
+
+                        <span>
+
+                            {loadingUser
+                                ? "Loading..."
+                                : user.role}
+
                         </span>
-                    </button>
 
-                    {profileOpen && (
-                        <div className="profile-dropdown">
-
-                            <NavLink
-                                to="/profile"
-                                onClick={() =>
-                                    setProfileOpen(false)
-                                }
-                            >
-                                👤 Profile
-                            </NavLink>
-
-                            <NavLink
-                                to="/settings"
-                                onClick={() =>
-                                    setProfileOpen(false)
-                                }
-                            >
-                                ⚙ Settings
-                            </NavLink>
-
-                            <div className="dropdown-divider"></div>
-
-                            <button onClick={handleLogout}>
-                                ⇥ Logout
-                            </button>
-
-                        </div>
-                    )}
+                    </div>
 
                 </div>
 
-                {/* MOBILE BUTTON */}
+
+                {/* =============================================
+                    LOGOUT
+                ============================================= */}
+
                 <button
-                    className="mobile-menu-btn"
-                    onClick={() =>
-                        setMenuOpen(!menuOpen)
-                    }
+                    className="navbar-logout"
+                    onClick={handleLogout}
+                    title="Logout"
                 >
-                    ☰
+
+                    <LogOut size={17} />
+
                 </button>
 
             </div>

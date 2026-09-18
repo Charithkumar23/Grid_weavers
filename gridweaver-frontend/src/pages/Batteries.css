@@ -1,0 +1,1757 @@
+/* =========================================================
+   GRIDWEAVER BATTERIES PAGE
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+.gridweaver-layout {
+    min-height: 100vh;
+    width: 100%;
+    background: #f5f7fb;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.batteries-page {
+    margin-left: 150px;
+    width: calc(100% - 200px);
+    min-height: 100vh;
+    padding: 28px 32px 50px;
+    background: #f5f7fb;
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.battery-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.page-label {
+    color: #8a94a6;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    margin-bottom: 5px;
+}
+
+.battery-header h1 {
+    margin: 0;
+    color: #111827;
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.battery-header p {
+    margin: 7px 0 0;
+    color: #68758a;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   ADD BUTTON
+========================================================= */
+
+.add-battery-btn {
+    border: 0;
+    border-radius: 8px;
+    background: #111827;
+    color: #ffffff;
+    height: 40px;
+    padding: 0 17px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.2s ease;
+}
+
+.add-battery-btn:hover {
+    background: #1f2937;
+    transform: translateY(-1px);
+}
+
+.add-battery-btn span {
+    font-size: 20px;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.battery-stats {
+    width: 0%;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.battery-stat-card {
+    min-height: 82px;
+    background: #ffffff;
+    border: 1px solid #dfe5ed;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(17, 24, 39, 0.03);
+}
+
+.stat-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+}
+
+.battery-icon {
+    color: #16a34a;
+}
+
+.online-icon {
+    color: #2563eb;
+    font-size: 16px;
+}
+
+.charging-icon {
+    color: #f59e0b;
+}
+
+.charge-icon {
+    color: #0f766e;
+    font-weight: 700;
+}
+
+.fault-icon {
+    color: #dc2626;
+    font-weight: 700;
+}
+
+.battery-stat-card span {
+    display: block;
+    color: #68758a;
+    font-size: 10px;
+    margin-bottom: 3px;
+}
+
+.battery-stat-card strong {
+    display: block;
+    color: #111827;
+    font-size: 17px;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.battery-toolbar {
+    width: 100%;
+    min-height: 55px;
+    background: #ffffff;
+    border: 1px solid #dfe5ed;
+    border-radius: 9px 9px 0 0;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.search-box {
+    height: 36px;
+    width: 280px;
+    flex-shrink: 0;
+    border: 1px solid #d8e0ea;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    padding: 0 11px;
+    background: #ffffff;
+}
+
+.search-box span {
+    color: #64748b;
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+.search-box input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #111827;
+    font-size: 11px;
+}
+
+.search-box input::placeholder {
+    color: #9aa5b5;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-btn {
+    height: 36px;
+    padding: 0 12px;
+    border-radius: 7px;
+    border: 1px solid #d9e1eb;
+    background: #ffffff;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    background: #f8fafc;
+}
+
+.filter-btn.active {
+    background: #111827;
+    color: #ffffff;
+    border-color: #111827;
+}
+
+.refresh-btn {
+    height: 36px;
+    padding: 0 13px;
+    border: 1px solid #d9e1eb;
+    background: #ffffff;
+    border-radius: 7px;
+    color: #334155;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.refresh-btn:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.battery-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background: #ffffff;
+    border: 1px solid #dfe5ed;
+    border-top: 0;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 3px 10px rgba(17, 24, 39, 0.03);
+
+    /* Important */
+    -webkit-overflow-scrolling: touch;
+}
+
+.battery-table {
+    width: 100%;
+    min-width: 1450px;
+    border-collapse: collapse;
+    table-layout: auto;
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.battery-table thead {
+    background: #f8fafc;
+}
+
+.battery-table th {
+    height: 48px;
+    padding: 0 15px;
+    border-bottom: 1px solid #dfe5ed;
+    color: #64748b;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.battery-table tbody tr {
+    background: #ffffff;
+    transition: background 0.15s ease;
+}
+
+.battery-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.battery-table td {
+    height: 72px;
+    padding: 10px 15px;
+    border-bottom: 1px solid #edf1f5;
+    color: #334155;
+    font-size: 11px;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.battery-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+
+/* =========================================================
+   BATTERY NAME
+========================================================= */
+
+.battery-name-cell {
+    min-width: 190px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-battery-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.battery-name-cell strong {
+    display: block;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #172033;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.battery-name-cell span {
+    display: block;
+    margin-top: 3px;
+    color: #94a3b8;
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   ID
+========================================================= */
+
+.battery-id {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.table-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 68px;
+    justify-content: center;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.table-status i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: block;
+}
+
+.table-status.online {
+    background: #e8f8ef;
+    color: #15803d;
+}
+
+.table-status.online i {
+    background: #16a34a;
+}
+
+.table-status.offline {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.table-status.offline i {
+    background: #64748b;
+}
+
+.table-status.fault {
+    background: #fff0f1;
+    color: #dc2626;
+}
+
+.table-status.fault i {
+    background: #ef4444;
+}
+
+
+/* =========================================================
+   CHARGE
+========================================================= */
+
+.charge-cell {
+    min-width: 105px;
+}
+
+.charge-value {
+    margin-bottom: 6px;
+}
+
+.charge-value strong {
+    color: #111827;
+    font-size: 11px;
+}
+
+.table-charge-track {
+    width: 85px;
+    height: 4px;
+    background: #e7ecf2;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.table-charge-fill {
+    height: 100%;
+    border-radius: inherit;
+    transition: width 0.3s ease;
+}
+
+.table-charge-fill.high {
+    background: #26996d;
+}
+
+.table-charge-fill.medium {
+    background: #e5a83a;
+}
+
+.table-charge-fill.low {
+    background: #dc4b4b;
+}
+
+
+/* =========================================================
+   NUMBERS
+========================================================= */
+
+.battery-table td strong {
+    color: #172033;
+    font-size: 11px;
+}
+
+.unit {
+    color: #94a3b8;
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+.state-text {
+    display: inline-block;
+    padding: 5px 8px;
+    background: #f1f5f9;
+    color: #475569;
+    border-radius: 5px;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   HEALTH
+========================================================= */
+
+.health-cell {
+    min-width: 80px;
+}
+
+.health-cell strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.health-track {
+    width: 65px;
+    height: 4px;
+    border-radius: 10px;
+    background: #e8edf2;
+    overflow: hidden;
+}
+
+.health-fill {
+    height: 100%;
+    background: #26996d;
+    border-radius: inherit;
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.location-text {
+    color: #64748b;
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.table-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.table-actions button {
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 6px;
+    background: #ffffff;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.table-edit-btn {
+    color: #1d4ed8;
+    border: 1px solid #cbd5e1;
+}
+
+.table-edit-btn:hover {
+    background: #eff6ff;
+    border-color: #93c5fd;
+}
+
+.table-delete-btn {
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.table-delete-btn:hover {
+    background: #fff1f2;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.battery-message {
+    min-height: 180px;
+    background: #ffffff;
+    border: 1px solid #dfe5ed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.loading-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #dbe3ec;
+    border-top-color: #111827;
+    border-radius: 50%;
+    animation: batterySpin 0.8s linear infinite;
+}
+
+@keyframes batterySpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.battery-error {
+    margin-top: 15px;
+    min-height: 70px;
+    padding: 15px;
+    background: #fff7f7;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    color: #dc2626;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+}
+
+.battery-error button {
+    margin-left: auto;
+    border: 1px solid #fecaca;
+    background: #ffffff;
+    color: #dc2626;
+    border-radius: 6px;
+    padding: 7px 12px;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-batteries {
+    margin-top: 15px;
+    min-height: 260px;
+    background: #ffffff;
+    border: 1px solid #dfe5ed;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+}
+
+.empty-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.empty-batteries h3 {
+    margin: 0;
+    color: #172033;
+    font-size: 17px;
+}
+
+.empty-batteries p {
+    max-width: 380px;
+    color: #7b8798;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 8px 0 18px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(15, 23, 42, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.battery-modal {
+    width: min(760px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 25px 70px rgba(15, 23, 42, 0.25);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 22px 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header > div > span {
+    color: #8a94a6;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.modal-header h2 {
+    margin: 5px 0 0;
+    color: #111827;
+    font-size: 21px;
+}
+
+.close-btn {
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 7px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    background: #e2e8f0;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.battery-form {
+    padding: 22px 24px 24px;
+}
+
+.form-section-title {
+    color: #334155;
+    font-size: 11px;
+    font-weight: 700;
+    padding-bottom: 9px;
+    margin: 8px 0 15px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-field label {
+    color: #475569;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.form-field input,
+.form-field select {
+    width: 100%;
+    height: 38px;
+    padding: 0 11px;
+    border: 1px solid #d9e1eb;
+    border-radius: 7px;
+    outline: none;
+    color: #172033;
+    background: #ffffff;
+    font-size: 11px;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    border-color: #94a3b8;
+    box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.12);
+}
+
+
+/* =========================================================
+   MODAL BUTTONS
+========================================================= */
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    margin-top: 25px;
+    padding-top: 18px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.cancel-btn,
+.save-btn {
+    height: 38px;
+    padding: 0 17px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    border: 1px solid #d9e1eb;
+    background: #ffffff;
+    color: #475569;
+}
+
+.save-btn {
+    border: 1px solid #111827;
+    background: #111827;
+    color: #ffffff;
+}
+
+.save-btn:hover {
+    background: #1f2937;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .battery-stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .batteries-page {
+        padding: 24px;
+    }
+}
+
+
+@media (max-width: 900px) {
+
+    .batteries-page {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .battery-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .battery-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .battery-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .batteries-page {
+        padding: 15px;
+    }
+
+    .battery-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-group {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .refresh-btn {
+        margin-left: auto;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .battery-modal {
+        max-height: 95vh;
+    }
+
+    .modal-header,
+    .battery-form {
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+}
+/* =========================================
+   GRIDWEAVER BATTERIES PAGE
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+.gridweaver-layout {
+    min-height: 100vh;
+    width: 100%;
+    background: #f5f7fb;
+}
+
+/* =========================================
+   MAIN CONTENT
+   Sidebar width = 200px
+   ========================================= */
+
+.batteries-page {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-width: 0;
+    min-height: 100vh;
+    padding: 22px 24px 40px;
+    background: #f5f7fb;
+    overflow-x: hidden;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.battery-header {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.page-label {
+    color: #71809a;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    margin-bottom: 4px;
+}
+
+.battery-header h1 {
+    margin: 0;
+    color: #111827;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.battery-header p {
+    margin: 6px 0 0;
+    color: #71809a;
+    font-size: 12px;
+}
+
+/* =========================================
+   ADD BUTTON
+   ========================================= */
+
+.add-battery-btn {
+    border: 0;
+    border-radius: 7px;
+    padding: 10px 15px;
+    background: #111827;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.add-battery-btn:hover {
+    background: #263244;
+}
+
+.add-battery-btn span {
+    font-size: 17px;
+    margin-right: 6px;
+}
+
+/* =========================================
+   STAT CARDS
+   ========================================= */
+
+.battery-stats {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.battery-stat-card {
+    min-width: 0;
+    min-height: 70px;
+    background: #ffffff;
+    border: 1px solid #dfe5ee;
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    box-shadow: 0 2px 7px rgba(17, 24, 39, 0.03);
+}
+
+.stat-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 9px;
+    background: #f2f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+}
+
+.battery-icon {
+    color: #111827;
+}
+
+.online-icon {
+    color: #2563eb;
+    font-size: 16px;
+}
+
+.charging-icon {
+    color: #111827;
+}
+
+.charge-icon {
+    color: #059669;
+    font-weight: 700;
+}
+
+.fault-icon {
+    color: #dc2626;
+    font-weight: 700;
+}
+
+.battery-stat-card span {
+    display: block;
+    color: #71809a;
+    font-size: 10px;
+    margin-bottom: 3px;
+}
+
+.battery-stat-card strong {
+    display: block;
+    color: #111827;
+    font-size: 17px;
+}
+
+/* =========================================
+   TOOLBAR
+   ========================================= */
+
+.battery-toolbar {
+    width: 100%;
+    min-height: 56px;
+    background: white;
+    border: 1px solid #dfe5ee;
+    border-radius: 8px 8px 0 0;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    width: 280px;
+    height: 34px;
+    border: 1px solid #d6deea;
+    border-radius: 6px;
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.search-box span {
+    color: #60708a;
+    font-size: 15px;
+    margin-right: 7px;
+}
+
+.search-box input {
+    width: 100%;
+    border: 0;
+    outline: none;
+    color: #263244;
+    font-size: 11px;
+    background: transparent;
+}
+
+.search-box input::placeholder {
+    color: #9aa7b8;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-btn,
+.refresh-btn {
+    height: 34px;
+    padding: 0 12px;
+    border: 1px solid #d6deea;
+    border-radius: 6px;
+    background: white;
+    color: #344054;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.filter-btn:hover,
+.refresh-btn:hover {
+    background: #f7f9fc;
+}
+
+.filter-btn.active {
+    background: #111827;
+    border-color: #111827;
+    color: white;
+    font-weight: 700;
+}
+
+.refresh-btn {
+    margin-left: 2px;
+}
+
+/* =========================================
+   TABLE / LIST
+   ========================================= */
+
+.battery-grid {
+    width: 100%;
+    display: block;
+    background: white;
+    border: 1px solid #dfe5ee;
+    border-top: 0;
+    border-radius: 0 0 8px 8px;
+    overflow-x: auto;
+}
+
+/* Each battery becomes a table row */
+
+.battery-card {
+    width: 100%;
+    min-width: 1050px;
+    min-height: 78px;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns:
+        minmax(180px, 2fr)
+        minmax(120px, 1fr)
+        minmax(100px, 0.9fr)
+        minmax(120px, 1fr)
+        minmax(85px, 0.8fr)
+        minmax(85px, 0.8fr)
+        minmax(85px, 0.8fr)
+        minmax(100px, 0.9fr)
+        minmax(100px, 0.9fr)
+        minmax(75px, 0.7fr)
+        minmax(100px, 0.9fr)
+        100px;
+    align-items: center;
+    border-bottom: 1px solid #e8edf3;
+    background: #fff;
+}
+
+.battery-card:last-child {
+    border-bottom: 0;
+}
+
+.battery-card:hover {
+    background: #fafbfd;
+}
+
+/* =========================================
+   BATTERY NAME
+   ========================================= */
+
+.battery-card-top {
+    display: contents;
+}
+
+.battery-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+}
+
+.battery-symbol {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.battery-title > div:last-child {
+    min-width: 0;
+}
+
+.battery-title h3 {
+    margin: 0;
+    color: #111827;
+    font-size: 12px;
+    font-weight: 650;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.battery-title span {
+    display: block;
+    margin-top: 3px;
+    color: #71809a;
+    font-size: 9px;
+}
+
+/* =========================================
+   STATUS
+   ========================================= */
+
+.status-badge {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.status-badge i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: block;
+}
+
+.status-badge.online {
+    background: #e9f8f0;
+    color: #079455;
+}
+
+.status-badge.online i {
+    background: #12b76a;
+}
+
+.status-badge.offline {
+    background: #f1f3f6;
+    color: #667085;
+}
+
+.status-badge.offline i {
+    background: #667085;
+}
+
+.status-badge.fault {
+    background: #fff0f0;
+    color: #d92d20;
+}
+
+.status-badge.fault i {
+    background: #f04438;
+}
+
+/* =========================================
+   CHARGE
+   ========================================= */
+
+.charge-section {
+    min-width: 100px;
+}
+
+.charge-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.charge-header span {
+    display: none;
+}
+
+.charge-header strong {
+    color: #111827;
+    font-size: 11px;
+}
+
+.charge-track {
+    width: 84px;
+    height: 4px;
+    margin-top: 6px;
+    border-radius: 10px;
+    background: #e5eaf0;
+    overflow: hidden;
+}
+
+.charge-fill {
+    height: 100%;
+    border-radius: inherit;
+}
+
+.charge-fill.high {
+    background: #299b72;
+}
+
+.charge-fill.medium {
+    background: #e5a526;
+}
+
+.charge-fill.low {
+    background: #e55353;
+}
+
+/* =========================================
+   METRICS
+   ========================================= */
+
+.battery-metrics {
+    display: contents;
+}
+
+.battery-metrics > div {
+    min-width: 0;
+}
+
+.battery-metrics span,
+.battery-footer span {
+    display: block;
+    color: #71809a;
+    font-size: 9px;
+    margin-bottom: 4px;
+}
+
+.battery-metrics strong,
+.battery-footer strong {
+    display: block;
+    color: #344054;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* =========================================
+   FOOTER DATA
+   ========================================= */
+
+.battery-footer {
+    display: contents;
+}
+
+.battery-footer > div {
+    min-width: 0;
+}
+
+/* =========================================
+   ACTION BUTTONS
+   ========================================= */
+
+.battery-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.battery-actions button {
+    height: 28px;
+    padding: 0 9px;
+    border: 1px solid #d7dee8;
+    border-radius: 5px;
+    background: white;
+    color: #344054;
+    font-size: 9px;
+    cursor: pointer;
+}
+
+.battery-actions button:hover {
+    background: #f5f7fa;
+}
+
+.battery-actions .delete-action {
+    color: #d92d20;
+    border-color: #f0d3d0;
+}
+
+.battery-actions .delete-action:hover {
+    background: #fff5f4;
+}
+
+/* =========================================
+   LOADING
+   ========================================= */
+
+.battery-message {
+    width: 100%;
+    min-height: 150px;
+    background: white;
+    border: 1px solid #dfe5ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #667085;
+    font-size: 12px;
+}
+
+.loading-spinner {
+    width: 17px;
+    height: 17px;
+    border: 2px solid #dce2ea;
+    border-top-color: #111827;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================
+   ERROR
+   ========================================= */
+
+.battery-error {
+    margin-top: 12px;
+    padding: 13px;
+    border: 1px solid #f2caca;
+    background: #fff6f6;
+    color: #c62828;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+}
+
+.battery-error button {
+    margin-left: auto;
+    border: 1px solid #e5b7b7;
+    background: white;
+    color: #c62828;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* =========================================
+   EMPTY
+   ========================================= */
+
+.empty-batteries {
+    margin-top: 14px;
+    background: white;
+    border: 1px solid #dfe5ee;
+    border-radius: 8px;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.empty-icon {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.empty-batteries h3 {
+    margin: 0;
+    color: #111827;
+    font-size: 16px;
+}
+
+.empty-batteries p {
+    max-width: 400px;
+    margin: 7px auto 18px;
+    color: #71809a;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   MODAL
+   ========================================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(15, 23, 42, 0.48);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.battery-modal {
+    width: min(720px, 100%);
+    max-height: 92vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    padding: 20px 22px;
+    border-bottom: 1px solid #e5eaf0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-header > div > span {
+    color: #71809a;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.modal-header h2 {
+    margin: 5px 0 0;
+    color: #111827;
+    font-size: 20px;
+}
+
+.close-btn {
+    width: 32px;
+    height: 32px;
+    border: 0;
+    background: #f2f4f7;
+    border-radius: 7px;
+    color: #344054;
+    font-size: 21px;
+    cursor: pointer;
+}
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.battery-form {
+    padding: 20px 22px;
+}
+
+.form-section-title {
+    color: #111827;
+    font-size: 11px;
+    font-weight: 700;
+    margin: 8px 0 12px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+    margin-bottom: 18px;
+}
+
+.form-field {
+    min-width: 0;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 5px;
+    color: #475467;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.form-field input,
+.form-field select {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #d6deea;
+    border-radius: 6px;
+    outline: none;
+    background: white;
+    color: #344054;
+    font-size: 11px;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    border-color: #7c8ba1;
+    box-shadow: 0 0 0 3px rgba(71, 84, 103, 0.08);
+}
+
+/* =========================================
+   MODAL BUTTONS
+   ========================================= */
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    border-top: 1px solid #e8edf3;
+    padding-top: 16px;
+}
+
+.cancel-btn,
+.save-btn {
+    height: 36px;
+    padding: 0 15px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    border: 1px solid #d6deea;
+    background: white;
+    color: #344054;
+}
+
+.save-btn {
+    border: 1px solid #111827;
+    background: #111827;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #263244;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 1100px) {
+
+    .battery-stats {
+        grid-template-columns: repeat(3, minmax(150px, 1fr));
+    }
+
+    .battery-card {
+        min-width: 1050px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .batteries-page {
+        margin-left: 0;
+        width: 100%;
+        padding: 16px;
+    }
+
+    .battery-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .battery-stats {
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+    }
+
+    .battery-toolbar {
+        align-items: stretch;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .filter-group {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .refresh-btn {
+        margin-left: 0;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .battery-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .battery-header h1 {
+        font-size: 21px;
+    }
+
+    .add-battery-btn {
+        width: 100%;
+    }
+}

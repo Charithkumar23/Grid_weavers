@@ -1,106 +1,126 @@
-import { useState } from "react";
+import React from "react";
+import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 
 function Sidebar() {
-  const [active, setActive] = useState("Dashboard");
+    const menuItems = [
+        {
+            name: "Dashboard",
+            path: "/dashboard",
+            icon: "▦",
+        },
+        {
+            name: "Devices",
+            path: "/devices",
+            icon: "◉",
+        },
+        {
+            name: "Batteries",
+            path: "/batteries",
+            icon: "▣",
+        },
+        {
+            name: "Grid",
+            path: "/grid",
+            icon: "⌁",
+        },
+        {
+            name: "Events",
+            path: "/events",
+            icon: "◷",
+        },
+        {
+            name: "Analytics",
+            path: "/analytics",
+            icon: "▥",
+        },
+        {
+            name: "Settings",
+            path: "/settings",
+            icon: "⚙",
+        },
+    ];
 
-  const menuItems = [
-    {
-      section: "MAIN MENU",
-      items: [
-        { name: "Dashboard", icon: "▦" },
-        { name: "Grid Nodes", icon: "◉" },
-        { name: "Energy Flow", icon: "⚡" },
-        { name: "Events", icon: "◌" },
-      ],
-    },
-    {
-      section: "SYSTEM",
-      items: [
-        { name: "State Machine", icon: "◇" },
-        { name: "Analytics", icon: "▥" },
-        { name: "Settings", icon: "⚙" },
-      ],
-    },
-  ];
+    return (
+        <aside className="sidebar">
 
-  return (
-    <aside className="sidebar">
+            {/* Logo */}
+            <div className="sidebar-logo">
+                <div className="logo-icon">
+                    GW
+                </div>
 
-      {/* Logo */}
-      <div className="sidebar-logo">
-
-        <div className="logo-box">
-          ⚡
-        </div>
-
-        <div className="logo-text">
-          <h2>GridWeaver</h2>
-          <span>IoT Grid Engine</span>
-        </div>
-
-      </div>
-
-
-      {/* Menu */}
-      <div className="sidebar-menu">
-
-        {menuItems.map((section) => (
-          <div className="menu-section" key={section.section}>
-
-            <div className="section-title">
-              {section.section}
+                <div className="logo-content">
+                    <h2>GridWeaver</h2>
+                    <span>Microgrid Platform</span>
+                </div>
             </div>
 
-            {section.items.map((item) => (
+            {/* Navigation */}
+            <div className="sidebar-section-title">
+                MAIN MENU
+            </div>
 
-              <button
-                key={item.name}
-                className={`menu-item ${
-                  active === item.name ? "active" : ""
-                }`}
-                onClick={() => setActive(item.name)}
-              >
+            <nav className="sidebar-menu">
 
-                <span className="menu-icon">
-                  {item.icon}
-                </span>
+                {menuItems.map((item) => (
+                    <NavLink
+                        key={item.name}
+                        to={item.path}
+                        className={({ isActive }) =>
+                            isActive
+                                ? "sidebar-link active"
+                                : "sidebar-link"
+                        }
+                    >
+                        <span className="sidebar-icon">
+                            {item.icon}
+                        </span>
 
-                <span className="menu-name">
-                  {item.name}
-                </span>
+                        <span className="sidebar-text">
+                            {item.name}
+                        </span>
+                    </NavLink>
+                ))}
 
-              </button>
+            </nav>
 
-            ))}
+            {/* Bottom Information */}
+            <div className="sidebar-bottom">
 
-          </div>
-        ))}
+                <div className="system-status">
 
-      </div>
+                    <div className="status-dot"></div>
 
+                    <div>
+                        <span className="status-title">
+                            System Status
+                        </span>
 
-      {/* Bottom Status */}
-      <div className="sidebar-status">
+                        <span className="status-value">
+                            All Systems Operational
+                        </span>
+                    </div>
 
-        <div className="online-row">
+                </div>
 
-          <span className="online-dot"></span>
+                <div className="sidebar-user">
 
-          <strong>System Online</strong>
+                    <div className="user-avatar">
+                        GW
+                    </div>
 
-        </div>
+                    <div className="user-info">
+                        <strong>Grid Admin</strong>
+                        <span>Administrator</span>
+                    </div>
 
-        <p>Backend connected</p>
+                </div>
 
-        <span className="backend">
-          Spring Boot : 8080
-        </span>
+            </div>
 
-      </div>
-
-    </aside>
-  );
+        </aside>
+    );
 }
 
 export default Sidebar;

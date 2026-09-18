@@ -1,14 +1,43 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    Navigate
+} from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-
+// Pages
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-// import Devices from "./pages/Devices";
-// import Batteries from "./pages/Batteries";
-// import Events from "./pages/Events";
-// import Analytics from "./pages/Analytics";
-// import LiveMap from "./pages/LiveMap";
-// import Login from "./pages/Login";
+import Devices from "./pages/Devices";
+
+// Other pages
+import Batteries from "./pages/Batteries";
+import Grid from "./pages/Grid";
+import Events from "./pages/Events";
+import Analytics from "./pages/Analytics";
+import Settings from "./pages/Settings";
+
+
+/* ================================
+   PROTECTED ROUTE
+================================ */
+
+function ProtectedRoute({ children }) {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        return <Navigate to="/login" replace />;
+    }
+
+    return children;
+}
+
+
+/* ================================
+   APP
+================================ */
 
 function App() {
 
@@ -17,53 +46,159 @@ function App() {
 
             <Routes>
 
-                {/* LOGIN
+                {/* ================================
+                    DEFAULT
+                ================================= */}
+
+                <Route
+                    path="/"
+                    element={
+                        <Navigate
+                            to="/login"
+                            replace
+                        />
+                    }
+                />
+
+
+                {/* ================================
+                    AUTH PAGES
+                ================================= */}
+
                 <Route
                     path="/login"
                     element={<Login />}
+                />
+
+                <Route
+                    path="/register"
+                    element={<Register />}
+                />
+
+
+                {/* ================================
+                    DASHBOARD
+                ================================= */}
+
+                <Route
+                    path="/dashboard"
+                    element={
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    }
+                />
+
+
+                {/* ================================
+                    DEVICES
+                ================================= */}
+
+                {/* Device List */}
+
+                <Route
+                    path="/devices"
+                    element={
+                        <ProtectedRoute>
+                            <Devices />
+                        </ProtectedRoute>
+                    }
+                />
+
+
+                {/* Single Device */}
+
+                {/* <Route
+                    path="/devices/:id"
+                    element={
+                        <ProtectedRoute>
+                            <Devices />
+                        </ProtectedRoute>
+                    }
                 /> */}
 
-                {/* DASHBOARD AREA */}
+
+                {/* ================================
+                    BATTERIES
+                ================================= */}
+
                 <Route
-                    path="/*"
+                    path="/batteries"
                     element={
-                        <>
-                            <Navbar />
+                        <ProtectedRoute>
+                            <Batteries />
+                        </ProtectedRoute>
+                    }
+                />
 
-                            <Routes>
 
-                                <Route
-                                    path="/dashboard"
-                                    element={<Dashboard />}
-                                />
+                {/* ================================
+                    GRID
+                ================================= */}
 
-                                {/* <Route
-                                    path="/map"
-                                    element={<LiveMap />}
-                                />
+                <Route
+                    path="/grid"
+                    element={
+                        <ProtectedRoute>
+                            <Grid />
+                        </ProtectedRoute>
+                    }
+                />
 
-                                <Route
-                                    path="/devices"
-                                    element={<Devices />}
-                                />
 
-                                <Route
-                                    path="/batteries"
-                                    element={<Batteries />}
-                                />
+                {/* ================================
+                    EVENTS
+                ================================= */}
 
-                                <Route
-                                    path="/events"
-                                    element={<Events />}
-                                />
+                <Route
+                    path="/events"
+                    element={
+                        <ProtectedRoute>
+                            <Events />
+                        </ProtectedRoute>
+                    }
+                />
 
-                                <Route
-                                    path="/analytics"
-                                    element={<Analytics />}
-                                /> */}
 
-                            </Routes>
-                        </>
+                {/* ================================
+                    ANALYTICS
+                ================================= */}
+
+                <Route
+                    path="/analytics"
+                    element={
+                        <ProtectedRoute>
+                            <Analytics />
+                        </ProtectedRoute>
+                    }
+                />
+
+
+                {/* ================================
+                    SETTINGS
+                ================================= */}
+
+                <Route
+                    path="/settings"
+                    element={
+                        <ProtectedRoute>
+                            <Settings />
+                        </ProtectedRoute>
+                    }
+                /> 
+
+
+                {/* ================================
+                    UNKNOWN URL
+                ================================= */}
+
+                <Route
+                    path="*"
+                    element={
+                        <Navigate
+                            to="/dashboard"
+                            replace
+                        />
                     }
                 />
 
