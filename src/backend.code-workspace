@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../backend"
+		},
+		{
+			"path": "../../kafka_2.13-4.1.1"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "automatic"
+	}
+}
